@@ -15,7 +15,18 @@
                 <artifactId>selenium-java</artifactId>
                 <version>4.16.1</version>
             </dependency>
+        <!-- https://mvnrepository.com/artifact/org.testng/testng -->
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>7.9.0</version>
+            <scope>test</scope>
+        </dependency>
+
+
     </dependencies>
+
+
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
