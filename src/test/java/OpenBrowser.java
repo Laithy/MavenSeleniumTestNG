@@ -25,18 +25,29 @@ public class OpenBrowser
         driver.navigate().to("https://the-internet.herokuapp.com/login");
         driver.manage().window().maximize(); //Maximize
         Thread.sleep(1000); //Wait for 3 secs
+
         //Entering Credentials
         driver.findElement(By.name("username")).clear();
         driver.findElement(By.name("username")).sendKeys("tomsmith");
         driver.findElement(By.name("password")).clear();
         driver.findElement(By.name("password")).sendKeys("SuperSecretPassword!");
+
         //Logging in
         driver.findElement(By.name("password")).submit();
-        //Assertion
+
+        //First Assertion
         String expectedResult = "You logged into a secure area!";
         String actualResult = driver.findElement(By.id("flash")).getText();
-//        Assert.assertEquals(actualResult.contains(expectedResult),true);
         Assert.assertTrue(actualResult.contains(expectedResult));
+        System.out.println("First Assertion Passed");
+
+        //Second Assertion
+        Assert.assertTrue(driver.findElement(By.cssSelector("a[href=\"/logout\"]")).isDisplayed());
+        System.out.println("Second Assertion Passed");
+
+        //Third Assertion
+        Assert.assertTrue(driver.getCurrentUrl().contains("the-internet.herokuapp.com/secure"));
+        System.out.println("Third Assertion Passed");
     }
 
     @Test
