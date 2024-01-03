@@ -37,6 +37,7 @@ public class OpenBrowser
 
         //Logging in
         driver.findElement(By.name("password")).submit();
+        Thread.sleep(3000);
 
         //Soft assertions setup
         SoftAssert soft = new SoftAssert();
@@ -44,15 +45,15 @@ public class OpenBrowser
         //First Assertion
         String expectedResult = "You logged into a secure area!";
         String actualResult = driver.findElement(By.id("flash")).getText();
-        soft.assertTrue(actualResult.contains(expectedResult));
+        soft.assertTrue(actualResult.contains(expectedResult),"First assertion failed");
         System.out.println("First Assertion Passed");
 
         //Second Assertion
-        soft.assertTrue(driver.findElement(By.cssSelector("a[href=\"/logout\"]")).isDisplayed());
+        soft.assertTrue(driver.findElement(By.cssSelector("a[href=\"/logout\"]")).isDisplayed(),"Second assertion failed");
         System.out.println("Second Assertion Passed");
 
         //Third Assertion
-        soft.assertTrue(driver.getCurrentUrl().contains("the-internet.herokuapp.com/secure"));
+        soft.assertTrue(driver.getCurrentUrl().contains("the-internet.herokuapp.com/secure"),"Third assertion failed");
         System.out.println("Third Assertion Passed");
 
         //Finalizing Assertion
@@ -65,17 +66,40 @@ public class OpenBrowser
         driver.navigate().to("https://the-internet.herokuapp.com/login");
         driver.manage().window().maximize(); //Maximize
         Thread.sleep(1000); //Wait for 3 secs
+
         //Entering Credentials
         driver.findElement(By.name("username")).clear();
         driver.findElement(By.name("username")).sendKeys("TomBs");
         driver.findElement(By.name("password")).clear();
         driver.findElement(By.name("password")).sendKeys("SuperSecretPasswor!");
+
         //Logging in
         driver.findElement(By.name("password")).submit();
-        //Assertion
-        String expectedResult = "Your username is invalid!";
-        String actualResult = driver.findElement(By.id("flash")).getText();
-        Assert.assertTrue(actualResult.contains(expectedResult));
+        Thread.sleep(3000);
+
+
+        //Soft Assertion Setup
+        SoftAssert soft = new SoftAssert();
+
+        //First Assertion
+        String expectedResult01 = "Your username is invalid!";
+        String actualResult01 = driver.findElement(By.id("flash")).getText();
+        soft.assertTrue(actualResult01.contains(expectedResult01),"First assertion failed");
+        System.out.println("First Assertion Passed");
+
+        //Second Assertion
+        String expectedResult02 = "Login";
+        String actualResult02 = driver.findElement(By.cssSelector("i[class=\"fa fa-2x fa-sign-in\"]")).getText();
+        soft.assertTrue(actualResult02.contains(expectedResult02),"Second assertion failed");
+        System.out.println("Second Assertion Passed");
+
+        //Third Assertion
+        soft.assertTrue(driver.getCurrentUrl().contains("the-internet.herokuapp.com/login"),"Third assertion failed");
+        System.out.println("Third Assertion Passed");
+
+        //Finalizing Assertion
+        soft.assertAll();
+
     }
 
     @AfterTest
