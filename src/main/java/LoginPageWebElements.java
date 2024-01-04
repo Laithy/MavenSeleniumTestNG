@@ -15,4 +15,8 @@ public class LoginPageWebElements {
         WebElement passwordElement = driver.findElement(password01);
         return passwordElement;
     }
+
+    public static String FlashMSG(WebDriver driver){
+        return driver.findElement(By.id("flash")).getText();
+    }
 }
