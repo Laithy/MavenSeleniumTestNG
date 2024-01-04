@@ -1,5 +1,6 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
@@ -13,11 +14,14 @@ public class OpenBrowser
 {
 
     WebDriver driver = null;
+    LoginPageWebElements login = new LoginPageWebElements();
+
     @BeforeTest
     public void Initialization() throws InterruptedException {
         //Bridge between test scripts and browser
         String chromePath = System.getProperty("user.dir") + "\\src\\main\\resources\\Browsers\\chromedriver.exe";
         System.setProperty("webdriver.chrome.driver",chromePath);
+
         //New Object of WebDriver
         driver = new ChromeDriver();
     }
@@ -30,13 +34,13 @@ public class OpenBrowser
         Thread.sleep(1000); //Wait for 3 secs
 
         //Entering Credentials
-        driver.findElement(By.name("username")).clear();
-        driver.findElement(By.name("username")).sendKeys("tomsmith");
-        driver.findElement(By.name("password")).clear();
-        driver.findElement(By.name("password")).sendKeys("SuperSecretPassword!");
+        login.usernameElement(driver).clear();
+        login.usernameElement(driver).sendKeys("tomsmith");
+        login.passwordElement(driver).clear();
+        login.passwordElement(driver).sendKeys("SuperSecretPassword!");
 
         //Logging in
-        driver.findElement(By.name("password")).submit();
+        login.passwordElement(driver).submit();
         Thread.sleep(3000);
 
         //Soft assertions setup
@@ -68,13 +72,13 @@ public class OpenBrowser
         Thread.sleep(1000); //Wait for 3 secs
 
         //Entering Credentials
-        driver.findElement(By.name("username")).clear();
-        driver.findElement(By.name("username")).sendKeys("TomBs");
-        driver.findElement(By.name("password")).clear();
-        driver.findElement(By.name("password")).sendKeys("SuperSecretPasswor!");
+        login.usernameElement(driver).clear();
+        login.usernameElement(driver).sendKeys("TomBs");
+        login.passwordElement(driver).clear();
+        login.passwordElement(driver).sendKeys("SuperSecretPasswor!");
 
         //Logging in
-        driver.findElement(By.name("password")).submit();
+        login.passwordElement(driver).submit();
         Thread.sleep(3000);
 
 
